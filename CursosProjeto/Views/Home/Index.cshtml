@@ -1,8 +1,38 @@
-﻿@{
+﻿@model IEnumerable<CursoProjeto.Models.Curso>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h2 class="display-4">Lista de Cursos</h2>
 </div>
+
+ <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">  
+                    @foreach (var item in Model) {
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="https://docs.microsoft.com/pt-br/windows/images/docker-running-screenshot.png" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Tag name-->
+                                    <h5 class="fw-bolder">@Html.DisplayFor(modelItem => item.Tag)</h5>
+                                    <!-- Curso name-->                                    
+                                    <h5 class="fw-bolder">@Html.DisplayFor(modelItem => item.Titulo)</h5>
+                                    <!-- Product price-->
+                                    @Html.DisplayFor(modelItem => item.duracaoEmMinutos)
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ir para o Curso</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </section>
