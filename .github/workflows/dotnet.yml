@@ -1,0 +1,36 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: dotnet Build
+      run: dotnet build --no-restore
+    - name: dotnet publish
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/CursosProjeto
+    
+    - name: Azure Login
+        uses: azure/login@v1.1
+        with:
+          creds: ${{ secrets.AZURE_DEPLOY }}
+          
+    - name: Deploy to Azure Web App
+      with:
+          app-name: "aspnetghcdeploy"
+          slot-name: "production"
+          package: ${{env.DOTNET_ROOT}}/CursosProjeto
