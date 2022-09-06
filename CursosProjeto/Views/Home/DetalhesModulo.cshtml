@@ -1,0 +1,84 @@
+﻿@model CursoProjeto.Models.Modulo
+
+@{
+    ViewData["Title"] = "DetalhesModulo";
+}
+
+<h1>DetalhesModulo</h1>
+
+<div>
+    <h4>Modulo</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.curso)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.curso.Sumario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DescricaoDoModulo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DescricaoDoModulo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrdemDeExibicao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrdemDeExibicao)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (ViewBag.TotalModulos != ViewBag.Ultimo)
+    {
+        ViewBag.Anterior = (Model.Id - 1);
+        ViewBag.Proxima = (Model.Id + 1);
+    }
+    else
+    {
+        ViewBag.Anterior = (ViewBag.Ultimo - 1);
+    }
+
+    @if (ViewBag.Anterior != 0)
+    {
+        <a asp-action="DetalhesModulo" asp-route-id="@ViewBag.Anterior">Anterior</a>
+    }
+    @if (ViewBag.Proxima == Model.Id + 1 && ViewBag.TotalModulos != null)
+    {
+        <a asp-action="DetalhesModulo" asp-route-id="@ViewBag.Proxima">Proxima</a>
+    }
+
+    <a asp-action="Index">Voltar Aos Cursos</a>
+</div>
+
+<h4>Modulos</h4>
+<hr />
+<div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        @foreach (var item in Model.aulas)
+        {
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="https://docs.microsoft.com/pt-br/windows/images/docker-running-screenshot.png" alt="..." />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Tag name-->
+                            <h5 class="fw-bolder">@Html.DisplayFor(modelItem => item.DescricaoAula)</h5>
+                            <!-- Curso name-->
+                            <h5 class="fw-bolder">@Html.DisplayFor(modelItem => item.UlrAula)</h5>
+                            <!-- Product price-->
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="@Url.Action("DetalhesAula","Home", new{Id = item.Id})">Ir a aula</a></div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

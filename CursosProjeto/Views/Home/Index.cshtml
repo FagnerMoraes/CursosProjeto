@@ -23,12 +23,12 @@
                                     <!-- Curso name-->                                    
                                     <h5 class="fw-bolder">@Html.DisplayFor(modelItem => item.Titulo)</h5>
                                     <!-- Product price-->
-                                    @Html.DisplayFor(modelItem => item.duracaoEmMinutos)
+                                    @Html.DisplayFor(modelItem => item.duracaoEmMinutos) minutos
                                 </div>
                             </div>
                             <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ir para o Curso</a></div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">                            
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="@Url.Action("DetalhesCurso","Home", new{Id = item.Id})">Ir ao curso</a></div>
                             </div>
                         </div>
                     </div>

@@ -22,9 +22,46 @@ namespace CursosProjeto.Controllers
         public async Task<IActionResult> Index()
         {
             return _context.cursos != null ?
-                          View(await _context.cursos.ToListAsync()) :
+                          View(await _context.cursos.AsNoTracking().ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.cursos'  is null.");
         }
+
+        public async Task<IActionResult> DetalhesCurso(int? id)
+        {
+            var curso = await _context.cursos.AsNoTracking().Include(x => x.modulos.OrderBy(x => x.OrdemDeExibicao))
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            return View(curso);
+        }
+
+        public async Task<IActionResult> DetalhesModulo(int? id)
+        {
+            ViewBag.TotalModulos = _context.modulos.AsNoTracking().Count();
+            ViewBag.Ultimo = id;
+
+
+            var modulo = await _context.modulos.Include(x => x.aulas)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            ViewBag.CursoAtual = modulo.CursoId.ToString();
+
+            return View(modulo);
+        }
+
+        public async Task<IActionResult> DetalhesAula(int? id)
+        {
+            ViewBag.TotalAulas = _context.aulas.AsNoTracking().Count();
+            ViewBag.Ultimo = id;
+                
+            
+
+            var aula = await _context.aulas.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+            
+
+            return View(aula);
+        }
+
 
         public IActionResult Privacy()
         {

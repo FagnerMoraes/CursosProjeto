@@ -1,0 +1,72 @@
+﻿@model CursoProjeto.Models.Curso
+
+@{
+    ViewData["Title"] = "DetalhesCurso";
+}
+
+<h1>DetalhesCurso</h1>
+
+<div>
+    <h4>Curso</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tag)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tag)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sumario)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sumario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.duracaoEmMinutos)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.duracaoEmMinutos)
+        </dd>
+    </dl>
+    
+    <h4>Modulos</h4>
+    <hr />    
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                @foreach (var item in Model.modulos)
+                {
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="https://docs.microsoft.com/pt-br/windows/images/docker-running-screenshot.png" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Tag name-->
+                                    <h5 class="fw-bolder">@Html.DisplayFor(modelItem => item.DescricaoDoModulo)</h5>
+                                    <!-- Curso name-->
+                                    <h5 class="fw-bolder">@Html.DisplayFor(modelItem => item.OrdemDeExibicao)</h5>
+                                    <!-- Product price-->
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="@Url.Action("DetalhesModulo","Home", new{Id = item.Id})">Ir ao modulo</a></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+</div>
+<div>
+    <a asp-action="Index">Voltar Aos cursos</a>
+</div>

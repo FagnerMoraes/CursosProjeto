@@ -1,0 +1,52 @@
+﻿@model CursoProjeto.Models.Aula
+
+@{
+    ViewData["Title"] = "DetalhesAula";
+}
+
+<h1>DetalhesAula</h1>
+
+<div>
+    <h4>Aula</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.modulo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.modulo.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DescricaoAula)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DescricaoAula)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UlrAula)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UlrAula)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (ViewBag.TotalAulas != ViewBag.Ultimo)
+    {
+        ViewBag.Anterior = (Model.Id - 1);
+        ViewBag.Proxima = (Model.Id + 1);
+    }else{
+        ViewBag.Anterior = (ViewBag.Ultimo - 1);
+    }
+    
+    @if (ViewBag.Anterior != 0)
+    {
+        <a asp-action="DetalhesAula" asp-route-id="@ViewBag.Anterior">Anterior</a>
+    }
+    @if (ViewBag.Proxima == Model.Id + 1 && ViewBag.TotalAulas != null)
+    {
+        <a asp-action="DetalhesAula" asp-route-id="@ViewBag.Proxima">Proxima</a>
+    }
+    
+    <a asp-action="Index")">Voltar aos Curso</a>
+</div>
