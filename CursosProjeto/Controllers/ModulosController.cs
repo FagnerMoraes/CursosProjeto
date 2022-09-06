@@ -24,8 +24,8 @@ namespace CursosProjeto.Controllers
         // GET: Modulos
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.modulos.Include(m => m.curso);
-            return View(await applicationDbContext.ToListAsync());
+            var applicationDbContext = _context.modulos.AsNoTracking().Include(m => m.curso);
+            return View(await applicationDbContext.AsNoTracking().ToListAsync());
         }
 
         // GET: Modulos/Details/5

@@ -25,7 +25,7 @@ namespace CursosProjeto.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.cursos != null ? 
-                          View(await _context.cursos.ToListAsync()) :
+                          View(await _context.cursos.AsNoTracking().ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.cursos'  is null.");
         }
 

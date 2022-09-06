@@ -25,7 +25,7 @@ namespace CursosProjeto.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.aulas.Include(a => a.modulo);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await applicationDbContext.AsNoTracking().ToListAsync());
         }
 
         // GET: Aulas/Details/5
